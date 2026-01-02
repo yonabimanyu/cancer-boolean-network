@@ -6,11 +6,11 @@
 #              for chromosome 17 copy number variation analysis. Creates regulatory
 #              connections between methylation and expression nodes to capture
 #              epigenetic regulation of gene expression in the context of chromosomal
-#              amplification (GAIN) vs normal diploid (DIS) conditions.
+#              amplification (GAIN) vs disomic (DIS) conditions.
 #
-# Author: [Your Name]
-# Date: 2025-01-01
-# Version: 3.0 (Updated 2025-12-24)
+# Author: Yon Abimanyu
+# Date: 2026-01-01
+# Version: 1.0
 #
 # Biological Rationale:
 #   Chromosome 17 amplification can affect both gene dosage (expression) and
@@ -73,7 +73,6 @@ genes_expr_gain <- nodes_exp_gain_chr17_sthr2.3 %>%
   distinct() %>%
   arrange(id)
 message("GAIN: Expression layer genes: ", nrow(genes_expr_gain))
-# Expected: 868 genes (as of 2025-12-24)
 
 genes_meth_gain <- nodes_met_gain_chr17_sthr2.4 %>%
   mutate(id = str_remove(id, "_methylation")) %>%
@@ -82,19 +81,17 @@ genes_meth_gain <- nodes_met_gain_chr17_sthr2.4 %>%
   distinct() %>%
   arrange(id)
 message("GAIN: Methylation layer genes: ", nrow(genes_meth_gain))
-# Expected: 1,496 genes (as of 2025-12-24)
 
 # --- Identify Genes Present in Both Layers ---
 expr_meth_gain <- intersect(genes_expr_gain$id, genes_meth_gain$id)
 message("GAIN: Genes in both layers: ", length(expr_meth_gain))
-# Expected: 636 genes (as of 2025-12-24)
 
 
 # ==============================================================================
 # SECTION 1.1: GD CONTRAST (GAIN vs DIS)
 # ==============================================================================
 # Rationale: This contrast identifies copy number-specific effects by
-# comparing amplified vs diploid samples, isolating dosage-sensitive genes.
+# comparing amplified vs disomic samples, isolating dosage-sensitive genes.
 
 # --- Extract Status for Genes in Both Layers ---
 expr_status_gain_GD <- nodes_exp_gain_chr17_sthr2.3 %>%
@@ -133,7 +130,6 @@ valid_genes_GD_gain <- expr_meth_status_gain_GD %>%
   pull(gene)
 
 message("GAIN GD: Genes with changes in both layers: ", length(valid_genes_GD_gain))
-# Expected: 2 genes (as of 2025-12-24)
 # Note: Very few genes due to strict threshold 2.3/2.4 - highly confident relationships
 
 # --- Create Interlayer Edges ---
@@ -158,7 +154,6 @@ nodes_all_gain_GD_sthr2.3_2.4 <- bind_rows(
   distinct(id, .keep_all = TRUE)
 
 message("GAIN GD: Total significant nodes: ", nrow(nodes_all_gain_GD_sthr2.3_2.4))
-# Expected: 632 nodes (as of 2025-12-24)
 
 # Quality check
 message("GAIN GD - Expression status distribution:")
@@ -183,7 +178,6 @@ rels_all_gain_GD_sthr2.3_2.4 <- bind_rows(
   distinct()
 
 message("GAIN GD: Total edges: ", nrow(rels_all_gain_GD_sthr2.3_2.4))
-# Expected: 4,880 edges (as of 2025-12-24)
 
 write_csv(
   rels_all_gain_GD_sthr2.3_2.4,
@@ -248,7 +242,6 @@ valid_genes_GC_gain <- expr_meth_status_gain_GC %>%
   pull(gene)
 
 message("GAIN GC: Genes with changes in both layers: ", length(valid_genes_GC_gain))
-# Expected: 127 genes (as of 2025-12-24)
 
 # --- Create Interlayer Edges (GC) ---
 rels_meth_to_expr_gain_GC <- tibble(
@@ -272,7 +265,6 @@ nodes_all_gain_GC_sthr2.3_2.4 <- bind_rows(
   distinct(id, .keep_all = TRUE)
 
 message("GAIN GC: Total significant nodes: ", nrow(nodes_all_gain_GC_sthr2.3_2.4))
-# Expected: 1,441 nodes (as of 2025-12-24)
 
 message("GAIN GC - Status distribution:")
 print(table(nodes_all_gain_GC_sthr2.3_2.4$status))
@@ -291,7 +283,6 @@ rels_all_gain_GC_sthr2.3_2.4 <- bind_rows(
   distinct()
 
 message("GAIN GC: Total edges: ", nrow(rels_all_gain_GC_sthr2.3_2.4))
-# Expected: 17,422 edges (as of 2025-12-24)
 
 write_csv(
   rels_all_gain_GC_sthr2.3_2.4,
@@ -329,7 +320,6 @@ genes_expr_dis <- nodes_exp_dis_chr17_sthr2.3 %>%
   distinct() %>%
   arrange(id)
 message("DIS: Expression layer genes: ", nrow(genes_expr_dis))
-# Expected: 1,002 genes
 
 genes_meth_dis <- nodes_met_dis_chr17_sthr2.4 %>%
   mutate(id = str_remove(id, "_methylation")) %>%
@@ -338,12 +328,10 @@ genes_meth_dis <- nodes_met_dis_chr17_sthr2.4 %>%
   distinct() %>%
   arrange(id)
 message("DIS: Methylation layer genes: ", nrow(genes_meth_dis))
-# Expected: 1,659 genes
 
 # --- Identify Genes Present in Both Layers ---
 expr_meth_dis <- intersect(genes_expr_dis$id, genes_meth_dis$id)
 message("DIS: Genes in both layers: ", length(expr_meth_dis))
-# Expected: 764 genes
 
 
 # ==============================================================================
@@ -383,7 +371,6 @@ valid_genes_GD_dis <- expr_meth_status_dis_GD %>%
   pull(gene)
 
 message("DIS GD: Genes with changes in both layers: ", length(valid_genes_GD_dis))
-# Expected: 3 genes (as of 2025-12-24)
 
 # --- Create Interlayer Edges ---
 rels_meth_to_expr_dis_GD <- tibble(
@@ -407,7 +394,6 @@ nodes_all_dis_GD_sthr2.3_2.4 <- bind_rows(
   distinct(id, .keep_all = TRUE)
 
 message("DIS GD: Total significant nodes: ", nrow(nodes_all_dis_GD_sthr2.3_2.4))
-# Expected: 675 nodes
 
 message("DIS GD - Status distribution:")
 print(table(nodes_all_dis_GD_sthr2.3_2.4$status))
@@ -426,7 +412,6 @@ rels_all_dis_GD_sthr2.3_2.4 <- bind_rows(
   distinct()
 
 message("DIS GD: Total edges: ", nrow(rels_all_dis_GD_sthr2.3_2.4))
-# Expected: 10,743 edges
 
 write_csv(
   rels_all_dis_GD_sthr2.3_2.4,
@@ -489,7 +474,6 @@ valid_genes_DC_dis <- expr_meth_status_dis_DC %>%
   pull(gene)
 
 message("DIS DC: Genes with changes in both layers: ", length(valid_genes_DC_dis))
-# Expected: 95 genes
 
 # --- Create Interlayer Edges ---
 rels_meth_to_expr_dis_DC <- tibble(
@@ -513,7 +497,6 @@ nodes_all_dis_DC_sthr2.3_2.4 <- bind_rows(
   distinct(id, .keep_all = TRUE)
 
 message("DIS DC: Total significant nodes: ", nrow(nodes_all_dis_DC_sthr2.3_2.4))
-# Expected: 1,474 nodes
 
 message("DIS DC - Status distribution:")
 print(table(nodes_all_dis_DC_sthr2.3_2.4$status))
@@ -532,7 +515,6 @@ rels_all_dis_DC_sthr2.3_2.4 <- bind_rows(
   distinct()
 
 message("DIS DC: Total edges: ", nrow(rels_all_dis_DC_sthr2.3_2.4))
-# Expected: 46,534 edges
 
 write_csv(
   rels_all_dis_DC_sthr2.3_2.4,
@@ -574,26 +556,10 @@ message("DIS DC - Missing nodes: FROM=", length(missing_from_dis_DC),
 #   - nodes_all_dis_DC_sthr2.3_2.4.csv (1,474 nodes)
 #   - rels_all_dis_DC_sthr2.3_2.4.csv (46,534 edges)
 #
-# Key Observations:
-#   - GD contrasts have very few interlayer connections (2-3 genes) due to
-#     strict thresholds - these are high-confidence regulatory relationships
-#   - Control contrasts show more interlayer connections (95-127 genes)
-#     indicating broader dysregulation vs normal tissue
-#   - DIS samples show more edges overall, especially in DC contrast (46,534)
-#     suggesting diploid tumors have extensive methylation dysregulation
-#   - The sparse GAIN GD network (4,880 edges) vs dense DIS DC network
-#     (46,534 edges) highlights different regulatory mechanisms
-#
 # Comparison with BRCA1 Networks:
 #   - GAIN/DIS networks are generally sparser due to stricter thresholds
 #     (2.3/2.4 vs 1.4) - higher confidence but fewer relationships
 #   - Different biological focus: copy number dosage effects vs BRCA1
 #     expression status
 #   - Similar pattern: control contrasts have more edges than paired contrasts
-#
-# Next Steps:
-#   1. Compare GAIN vs DIS networks to identify copy number-specific effects
-#   2. Overlay with BRCA1 networks to find shared regulatory modules
-#   3. Perform pathway enrichment on interlayer-connected genes
-#   4. Identify master regulators with high centrality in both layers
 # ==============================================================================
