@@ -8,9 +8,9 @@
 #              analysis complements the UD (upBRCA1 vs downBRCA1) contrast by
 #              establishing baseline differences from normal tissue.
 #
-# Author: [Your Name]
-# Date: 2025-01-01
-# Version: 3.0 (Updated 2025-11-19)
+# Author: Yon Abimanyu
+# Date: 2026-01-01
+# Version: 1.0
 #
 # Input Files:
 #   - data/expression/upBRCA1/all_relations_upexp_1.4.txt
@@ -97,7 +97,6 @@ met_downBRCA1_chr17_sthr1.40 <- read.table(
 
 # --- Node Construction ---
 # Same gene list as UD contrast, but annotated with UC differential expression
-# Expected count: 702 nodes (as of 2025-11-19)
 nodes_exp_UC_chr17_sthr1.40 <- unique_genes_up_df %>%
   left_join(gene_info_final_3.5, by = c("ensembl_gene_id" = "ensembl_id")) %>%
   left_join(
@@ -148,7 +147,6 @@ nodes_exp_UC_chr17_sthr1.40 <- nodes_exp_UC_chr17_sthr1.40 %>%
 
 # --- Edge Construction ---
 # Use same relations as UD, will be filtered with UC status
-# Expected count before filtering: 42,506 edges
 rels_exp_upBRCA1_chr17_sthr1.40 <- exp_upBRCA1_chr17_sthr1.40 %>%
   transmute(
     from          = source_gene,
@@ -165,7 +163,6 @@ rels_exp_upBRCA1_chr17_sthr1.40 <- rels_exp_upBRCA1_chr17_sthr1.40 %>%
   )
 
 # --- Filter for Biologically Relevant Edges (UC Status) ---
-# Expected count: 3,925 edges (as of 2025-11-19)
 # Difference from UD: Different genes will be classified as UP_REG/DOWN_REG
 # when compared to control vs when compared to downBRCA1
 rels_exp_upbrca1_UC_sthr1.40 <- rels_exp_upBRCA1_chr17_sthr1.40 %>%
@@ -229,7 +226,6 @@ message("Expression UC - Missing FROM/TO nodes: ",
 # ==============================================================================
 
 # --- Node Construction ---
-# Expected count: 937 nodes (as of 2025-11-19)
 nodes_exp_DC_chr17_sthr1.40 <- unique_genes_down_df %>%
   left_join(gene_info_final_3.5, by = c("ensembl_gene_id" = "ensembl_id")) %>%
   left_join(
@@ -279,7 +275,6 @@ nodes_exp_DC_chr17_sthr1.40 <- nodes_exp_DC_chr17_sthr1.40 %>%
   mutate(id = paste0(id, "_expression"))
 
 # --- Edge Construction ---
-# Expected count before filtering: 110,676 edges
 rels_exp_downBRCA1_chr17_sthr1.40 <- exp_downBRCA1_chr17_sthr1.40 %>%
   transmute(
     from          = source_gene,
@@ -296,7 +291,6 @@ rels_exp_downBRCA1_chr17_sthr1.40 <- rels_exp_downBRCA1_chr17_sthr1.40 %>%
   )
 
 # --- Filter for Biologically Relevant Edges (DC Status) ---
-# Expected count: 6,779 edges (as of 2025-11-19)
 rels_exp_downbrca1_DC_sthr1.40 <- rels_exp_downBRCA1_chr17_sthr1.40 %>%
   left_join(
     nodes_exp_DC_chr17_sthr1.40 %>% select(id, status),
@@ -361,7 +355,6 @@ message("Expression DC - Missing FROM/TO nodes: ",
 # regulatory mechanisms driving the upBRCA1 phenotype.
 
 # --- Node Construction ---
-# Expected count: 1,594 nodes (as of 2025-11-19)
 nodes_met_UC_chr17_sthr1.40 <- unique_probes_up_df %>%
   left_join(probeInfo, by = "probeID") %>%
   # Use upBRCA1 vs Control DMP results
@@ -418,7 +411,6 @@ nodes_met_UC_chr17_sthr1.40 <- nodes_met_UC_chr17_sthr1.40 %>%
   mutate(id = paste0(id, "_methylation"))
 
 # --- Edge Construction ---
-# Expected count before filtering: 337,328 edges
 rels_met_upBRCA1_chr17_sthr1.40 <- met_upBRCA1_chr17_sthr1.40 %>%
   transmute(
     from          = source_gene,
@@ -435,7 +427,6 @@ rels_met_upBRCA1_chr17_sthr1.40 <- rels_met_upBRCA1_chr17_sthr1.40 %>%
   )
 
 # --- Filter for Biologically Relevant Edges (UC Status) ---
-# Expected count: 149,072 edges (as of 2025-11-19)
 # Note: Much higher edge count than expression due to larger number of
 # differentially methylated sites in UC contrast
 rels_met_upbrca1_UC_sthr1.40 <- rels_met_upBRCA1_chr17_sthr1.40 %>%
@@ -499,7 +490,6 @@ message("Methylation UC - Missing FROM/TO nodes: ",
 # ==============================================================================
 
 # --- Node Construction ---
-# Expected count: 1,471 nodes (as of 2025-11-19)
 nodes_met_DC_chr17_sthr1.40 <- unique_probes_down_df %>%
   left_join(probeInfo, by = "probeID") %>%
   # Use downBRCA1 vs Control DMP results
@@ -556,7 +546,6 @@ nodes_met_DC_chr17_sthr1.40 <- nodes_met_DC_chr17_sthr1.40 %>%
   mutate(id = paste0(id, "_methylation"))
 
 # --- Edge Construction ---
-# Expected count before filtering: 310,502 edges
 rels_met_downBRCA1_chr17_sthr1.40 <- met_downBRCA1_chr17_sthr1.40 %>%
   transmute(
     from          = source_gene,
@@ -573,7 +562,6 @@ rels_met_downBRCA1_chr17_sthr1.40 <- rels_met_downBRCA1_chr17_sthr1.40 %>%
   )
 
 # --- Filter for Biologically Relevant Edges (DC Status) ---
-# Expected count: 147,499 edges (as of 2025-11-19)
 rels_met_downbrca1_DC_sthr1.40 <- rels_met_downBRCA1_chr17_sthr1.40 %>%
   left_join(
     nodes_met_DC_chr17_sthr1.40 %>% select(id, status),
