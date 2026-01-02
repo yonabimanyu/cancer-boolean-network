@@ -62,7 +62,6 @@ exp_upBRCA1_chr17_sthr1.40 <- read.table(
 
 # --- Extract Unique Genes ---
 # Create master list of all genes involved in regulatory relationships
-# Expected count: 702 unique genes (as of 2025-11-19)
 unique_genes_up_df <- data.frame(
   ensembl_gene_id = unique(c(
     exp_upBRCA1_chr17_sthr1.40$source_ensembl_id,
