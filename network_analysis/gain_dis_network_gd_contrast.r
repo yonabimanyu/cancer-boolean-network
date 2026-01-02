@@ -1,23 +1,23 @@
 # ==============================================================================
 # BIOLOGICAL NETWORK ANALYSIS: CHROMOSOME 17 COPY NUMBER VARIATION
 # ==============================================================================
-# Title: Network Construction for GAIN vs DIS (Disomy) Contrast
+# Title: Network Construction for GAIN vs DIS (disomic) Contrast
 # Description: Constructs gene regulatory networks from expression and methylation
 #              data, focusing on chromosome 17 genes showing significant changes
-#              between GAIN (amplification) and DIS (normal/disomy) conditions.
+#              between GAIN (amplification) and DIS (disomic) conditions.
 #              This analysis identifies molecular changes specifically associated
 #              with chromosome 17 copy number gain, independent of BRCA1 status.
 #              Uses stricter thresholds (2.3 for expression, 2.4 for methylation)
 #              to focus on high-confidence relationships.
 #
-# Author: [Your Name]
-# Date: 2025-01-01
-# Version: 3.0 (Updated 2025-11-19)
+# Author: Yon Abimanyu
+# Date: 2026-01-01
+# Version: 1.0
 #
 # Biological Context:
 #   Chromosome 17 copy number gain (GAIN) is common in breast cancer and can
 #   affect numerous genes including BRCA1, HER2/ERBB2, and others. This analysis
-#   compares samples with chr17 gain against normal diploid (DIS) samples to
+#   compares samples with chr17 gain against disomic (DIS) samples to
 #   identify dosage-sensitive genes and regulatory networks affected by
 #   chromosomal amplification.
 #
@@ -72,7 +72,6 @@ exp_gain_chr17_sthr2.3 <- read.table(
 
 # --- Extract Unique Genes ---
 # Create master list of all genes involved in regulatory relationships
-# Expected count: 868 unique genes (as of 2025-11-19)
 unique_genes_gain_df <- data.frame(
   ensembl_gene_id = unique(c(
     exp_gain_chr17_sthr2.3$source_ensembl_id,
@@ -151,7 +150,6 @@ nodes_exp_gain_chr17_sthr2.3 <- nodes_exp_gain_chr17_sthr2.3 %>%
 
 # --- Edge Construction ---
 # Build regulatory relationship table with stricter threshold (2.3)
-# Expected count: 18,258 unique directed edges (as of 2025-11-19)
 rels_exp_gain_chr17_sthr2.3 <- exp_gain_chr17_sthr2.3 %>%
   transmute(
     from          = source_gene,
@@ -172,7 +170,6 @@ rels_exp_gain_chr17_sthr2.3 <- rels_exp_gain_chr17_sthr2.3 %>%
 # Rationale: Focus only on edges between genes showing significant expression
 # changes (OVER_T or DOWN_T). This removes noise from unchanged genes and
 # highlights the core regulatory network responding to chr17 copy number gain.
-# Expected count: 4 edges after filtering (as of 2025-12-24)
 # Note: Very low count suggests most genes don't meet strict threshold in both
 # directions, indicating sparse high-confidence network
 rels_exp_gain_GD_sthr2.3 <- rels_exp_gain_chr17_sthr2.3 %>%
@@ -244,7 +241,7 @@ message("Expression GAIN - Missing TO nodes: ", length(missing_to_nodes))
 # ==============================================================================
 # PART 2: EXPRESSION NETWORK - DIS Samples (Chr17 Focus)
 # ==============================================================================
-# Rationale: Analyze normal diploid (DIS) samples to establish baseline
+# Rationale: Analyze disomic (DIS) samples to establish baseline
 # regulatory network. Comparison with GAIN network identifies changes
 # specifically due to chromosomal amplification.
 
@@ -258,7 +255,6 @@ exp_dis_chr17_sthr2.3 <- read.table(
 )
 
 # --- Extract Unique Genes ---
-# Expected count: 1,002 unique genes (as of 2025-11-19)
 unique_genes_dis_df <- data.frame(
   ensembl_gene_id = unique(c(
     exp_dis_chr17_sthr2.3$source_ensembl_id,
@@ -319,7 +315,6 @@ nodes_exp_dis_chr17_sthr2.3 <- nodes_exp_dis_chr17_sthr2.3 %>%
   mutate(id = paste0(id, "_expression"))
 
 # --- Edge Construction ---
-# Expected count: 101,640 unique edges (as of 2025-11-19)
 rels_exp_dis_chr17_sthr2.3 <- exp_dis_chr17_sthr2.3 %>%
   transmute(
     from          = source_gene,
@@ -336,7 +331,6 @@ rels_exp_dis_chr17_sthr2.3 <- rels_exp_dis_chr17_sthr2.3 %>%
   )
 
 # --- Filter for Biologically Relevant Edges ---
-# Expected count: 1 edge after filtering (as of 2025-11-19)
 # Note: Extremely sparse network suggests DIS samples have very few genes
 # meeting both the strict threshold and differential expression criteria
 rels_exp_dis_GD_sthr2.3 <- rels_exp_dis_chr17_sthr2.3 %>%
@@ -414,7 +408,6 @@ met_gain_chr17_sthr2.4 <- read.table(
 
 # --- Extract Unique Probes ---
 # Methylation uses probe IDs rather than gene IDs directly
-# Expected count: 1,496 unique probes (as of 2025-11-19)
 unique_probes_met_df <- data.frame(
   probeID = unique(c(
     met_gain_chr17_sthr2.4$source_probe_id,
@@ -489,7 +482,6 @@ nodes_met_gain_chr17_sthr2.4 <- nodes_met_gain_chr17_sthr2.4 %>%
   mutate(id = paste0(id, "_methylation"))
 
 # --- Edge Construction ---
-# Expected count: 23,170 unique edges (as of 2025-11-19)
 rels_met_gain_chr17_sthr2.4 <- met_gain_chr17_sthr2.4 %>%
   transmute(
     from          = source_gene,
@@ -506,7 +498,6 @@ rels_met_gain_chr17_sthr2.4 <- rels_met_gain_chr17_sthr2.4 %>%
   )
 
 # --- Filter for Biologically Relevant Edges ---
-# Expected count: 4,874 edges after filtering (as of 2025-11-19)
 rels_met_gain_GD_sthr2.4 <- rels_met_gain_chr17_sthr2.4 %>%
   left_join(
     nodes_met_gain_chr17_sthr2.4 %>% select(id, status),
@@ -577,7 +568,6 @@ met_dis_chr17_sthr2.4 <- read.table(
 )
 
 # --- Extract Unique Probes ---
-# Expected count: 1,659 unique probes (as of 2025-11-19)
 unique_probes_met_dis_df <- data.frame(
   probeID = unique(c(
     met_dis_chr17_sthr2.4$source_probe_id,
@@ -643,7 +633,6 @@ nodes_met_dis_chr17_sthr2.4 <- nodes_met_dis_chr17_sthr2.4 %>%
   mutate(id = paste0(id, "_methylation"))
 
 # --- Edge Construction ---
-# Expected count: 65,632 unique edges (as of 2025-11-19)
 rels_met_dis_chr17_sthr2.4 <- met_dis_chr17_sthr2.4 %>%
   transmute(
     from          = source_gene,
@@ -660,7 +649,6 @@ rels_met_dis_chr17_sthr2.4 <- rels_met_dis_chr17_sthr2.4 %>%
   )
 
 # --- Filter for Biologically Relevant Edges ---
-# Expected count: 10,739 edges after filtering (as of 2025-11-19)
 rels_met_dis_GD_sthr2.4 <- rels_met_dis_chr17_sthr2.4 %>%
   left_join(
     nodes_met_dis_chr17_sthr2.4 %>% select(id, status),
@@ -731,10 +719,4 @@ message("Methylation DIS - Missing FROM/TO nodes: ",
 # Unique gene/probe lists for downstream analysis:
 # - unique_genes_gain_df, unique_genes_dis_df
 # - unique_probes_met_df, unique_probes_met_dis_df
-#
-# Key Findings:
-# - Very sparse expression networks after filtering (4 GAIN, 1 DIS edges)
-#   suggest strict threshold captures only highest-confidence relationships
-# - Methylation networks are denser (4,874 GAIN, 10,739 DIS edges)
-#   indicating widespread epigenetic changes in chr17 CNV
 # ==============================================================================
