@@ -8,9 +8,9 @@
 #              relevant relationships (UP_REG/DOWN_REG for expression, 
 #              HYPERMETH/HYPOMETH for methylation) and removes redundant edges.
 #
-# Author: [Your Name]
-# Date: 2025-01-01
-# Version: 3.0 (Updated 2025-11-19)
+# Author: Yon Abimanyu
+# Date: 2026-01-01
+# Version: 1.0
 #
 # Input Files:
 #   - data/expression/upBRCA1/all_relations_upexp_1.4.txt
@@ -138,7 +138,6 @@ nodes_exp_upBRCA1_chr17_sthr1.40 <- nodes_exp_upBRCA1_chr17_sthr1.40 %>%
 
 # --- Edge Construction ---
 # Build regulatory relationship table
-# Expected count: 42,506 unique directed edges (as of 2025-11-19)
 rels_exp_upBRCA1_chr17_sthr1.40 <- exp_upBRCA1_chr17_sthr1.40 %>%
   transmute(
     from          = source_gene,
@@ -159,7 +158,6 @@ rels_exp_upBRCA1_chr17_sthr1.40 <- rels_exp_upBRCA1_chr17_sthr1.40 %>%
 # Rationale: Focus only on edges between genes showing significant expression
 # changes (UP_REG or DOWN_REG). This removes noise from unchanged genes and
 # highlights the core regulatory network responding to BRCA1 status.
-# Expected count: 423 edges after filtering (as of 2025-11-19)
 rels_exp_upbrca1_UD_sthr1.40 <- rels_exp_upBRCA1_chr17_sthr1.40 %>%
   left_join(
     nodes_exp_upBRCA1_chr17_sthr1.40 %>% select(id, status),
@@ -241,7 +239,6 @@ exp_downBRCA1_chr17_sthr1.40 <- read.table(
 )
 
 # --- Extract Unique Genes ---
-# Expected count: 937 unique genes (as of 2025-11-19)
 unique_genes_down_df <- data.frame(
   ensembl_gene_id = unique(c(
     exp_downBRCA1_chr17_sthr1.40$source_ensembl_id,
@@ -300,7 +297,6 @@ nodes_exp_downBRCA1_chr17_sthr1.40 <- nodes_exp_downBRCA1_chr17_sthr1.40 %>%
   mutate(id = paste0(id, "_expression"))
 
 # --- Edge Construction ---
-# Expected count: 110,676 unique edges (as of 2025-11-19)
 rels_exp_downBRCA1_chr17_sthr1.40 <- exp_downBRCA1_chr17_sthr1.40 %>%
   transmute(
     from          = source_gene,
@@ -317,7 +313,6 @@ rels_exp_downBRCA1_chr17_sthr1.40 <- rels_exp_downBRCA1_chr17_sthr1.40 %>%
   )
 
 # --- Filter for Biologically Relevant Edges ---
-# Expected count: 1,308 edges after filtering (as of 2025-11-19)
 rels_exp_downBRCA1_UD_sthr1.40 <- rels_exp_downBRCA1_chr17_sthr1.40 %>%
   left_join(
     nodes_exp_downBRCA1_chr17_sthr1.40 %>% select(id, status),
@@ -392,7 +387,6 @@ met_upBRCA1_chr17_sthr1.40 <- read.table(
 
 # --- Extract Unique Probes ---
 # Methylation uses probe IDs rather than gene IDs directly
-# Expected count: 1,594 unique probes (as of 2025-11-19)
 unique_probes_up_df <- data.frame(
   probeID = unique(c(
     met_upBRCA1_chr17_sthr1.40$source_probe_id,
@@ -473,7 +467,6 @@ nodes_met_upBRCA1_chr17_sthr1.40 <- nodes_met_upBRCA1_chr17_sthr1.40 %>%
   mutate(id = paste0(id, "_methylation"))
 
 # --- Edge Construction ---
-# Expected count: 337,328 unique edges (as of 2025-11-19)
 rels_met_upBRCA1_chr17_sthr1.40 <- met_upBRCA1_chr17_sthr1.40 %>%
   transmute(
     from          = source_gene,
@@ -490,7 +483,6 @@ rels_met_upBRCA1_chr17_sthr1.40 <- rels_met_upBRCA1_chr17_sthr1.40 %>%
   )
 
 # --- Filter for Biologically Relevant Edges ---
-# Expected count: 13,173 edges after filtering (as of 2025-11-19)
 rels_met_upbrca1_UD_sthr1.40 <- rels_met_upBRCA1_chr17_sthr1.40 %>%
   left_join(
     nodes_met_upBRCA1_chr17_sthr1.40 %>% select(id, status),
@@ -561,7 +553,6 @@ met_downBRCA1_chr17_sthr1.40 <- read.table(
 )
 
 # --- Extract Unique Probes ---
-# Expected count: 1,471 unique probes (as of 2025-11-19)
 unique_probes_down_df <- data.frame(
   probeID = unique(c(
     met_downBRCA1_chr17_sthr1.40$source_probe_id,
@@ -627,7 +618,6 @@ nodes_met_downBRCA1_chr17_sthr1.40 <- nodes_met_downBRCA1_chr17_sthr1.40 %>%
   mutate(id = paste0(id, "_methylation"))
 
 # --- Edge Construction ---
-# Expected count: 310,502 unique edges (as of 2025-11-19)
 rels_met_downBRCA1_chr17_sthr1.40 <- met_downBRCA1_chr17_sthr1.40 %>%
   transmute(
     from          = source_gene,
@@ -644,7 +634,6 @@ rels_met_downBRCA1_chr17_sthr1.40 <- rels_met_downBRCA1_chr17_sthr1.40 %>%
   )
 
 # --- Filter for Biologically Relevant Edges ---
-# Expected count: 14,000 edges after filtering (as of 2025-11-19)
 rels_met_downbrca1_UD_sthr1.40 <- rels_met_downBRCA1_chr17_sthr1.40 %>%
   left_join(
     nodes_met_downBRCA1_chr17_sthr1.40 %>% select(id, status),
