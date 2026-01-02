@@ -11,15 +11,15 @@
 #              2. General tumor effects (common to both GC and DC)
 #              3. Dosage-dependent effects (gradient across conditions)
 #
-# Author: [Your Name]
-# Date: 2025-01-01
-# Version: 3.0 (Updated 2025-11-19)
+# Author: Yon Abimanyu
+# Date: 2026-01-01
+# Version: 1.0
 #
 # Biological Context:
 #   These control contrasts help separate the effects of chromosome 17 copy
 #   number gain from general tumor biology. GC contrast identifies changes
 #   specifically associated with amplification, while DC contrast reveals
-#   changes present even in diploid tumors.
+#   changes present even in disomic tumors.
 #
 # Input Files:
 #   - data/expression/GAIN/all_relations_gainexp_2.3.txt
@@ -107,7 +107,6 @@ met_dis_chr17_sthr2.4 <- read.table(
 
 # --- Node Construction ---
 # Same gene list as GD contrast, but annotated with GC differential expression
-# Expected count: 868 nodes (as of 2025-11-19)
 nodes_exp_gain_chr17_sthr2.3_GC <- unique_genes_gain_df %>%
   left_join(gene_info_final_3.5, by = c("ensembl_gene_id" = "ensembl_id")) %>%
   left_join(
@@ -158,7 +157,6 @@ nodes_exp_gain_chr17_sthr2.3_GC <- nodes_exp_gain_chr17_sthr2.3_GC %>%
 
 # --- Edge Construction ---
 # Use same relations as GD, will be filtered with GC status
-# Expected count before filtering: 18,258 edges
 rels_exp_gain_chr17_sthr2.3 <- exp_gain_chr17_sthr2.3 %>%
   transmute(
     from          = source_gene,
@@ -175,7 +173,6 @@ rels_exp_gain_chr17_sthr2.3 <- rels_exp_gain_chr17_sthr2.3 %>%
   )
 
 # --- Filter for Biologically Relevant Edges (GC Status) ---
-# Expected count: 1,539 edges (as of 2025-11-19)
 # Difference from GD: Different genes will be classified as OVER_T/DOWN_T
 # when compared to control vs when compared to DIS
 rels_exp_gain_GC_sthr2.3 <- rels_exp_gain_chr17_sthr2.3 %>%
@@ -234,11 +231,10 @@ message("Expression GAIN vs Control - Missing FROM/TO nodes: ",
 # ==============================================================================
 # PART 2: EXPRESSION NETWORK - DIS vs Control (DC)
 # ==============================================================================
-# Rationale: Identify genes dysregulated in diploid tumor samples compared to
+# Rationale: Identify genes dysregulated in disomic tumor samples compared to
 # control. This reveals baseline tumor effects independent of chr17 amplification.
 
 # --- Node Construction ---
-# Expected count: 1,002 nodes (as of 2025-11-19)
 nodes_exp_dis_chr17_sthr2.3_DC <- unique_genes_dis_df %>%
   left_join(gene_info_final_3.5, by = c("ensembl_gene_id" = "ensembl_id")) %>%
   left_join(
@@ -288,7 +284,6 @@ nodes_exp_dis_chr17_sthr2.3_DC <- nodes_exp_dis_chr17_sthr2.3_DC %>%
   mutate(id = paste0(id, "_expression"))
 
 # --- Edge Construction ---
-# Expected count before filtering: 101,640 edges
 rels_exp_dis_chr17_sthr2.3 <- exp_dis_chr17_sthr2.3 %>%
   transmute(
     from          = source_gene,
@@ -305,7 +300,6 @@ rels_exp_dis_chr17_sthr2.3 <- rels_exp_dis_chr17_sthr2.3 %>%
   )
 
 # --- Filter for Biologically Relevant Edges (DC Status) ---
-# Expected count: 2,026 edges (as of 2025-11-19)
 rels_exp_dis_DC_sthr2.3 <- rels_exp_dis_chr17_sthr2.3 %>%
   left_join(
     nodes_exp_dis_chr17_sthr2.3_DC %>% select(id, status),
@@ -366,7 +360,6 @@ message("Expression DIS vs Control - Missing FROM/TO nodes: ",
 # to increased gene dosage.
 
 # --- Node Construction ---
-# Expected count: 1,496 nodes (as of 2025-11-19)
 nodes_met_gain_chr17_sthr2.4_GC <- unique_probes_met_df %>%
   left_join(probeInfo, by = "probeID") %>%
   # Use GAIN vs Control DMP results
@@ -423,7 +416,6 @@ nodes_met_gain_chr17_sthr2.4_GC <- nodes_met_gain_chr17_sthr2.4_GC %>%
   mutate(id = paste0(id, "_methylation"))
 
 # --- Edge Construction ---
-# Expected count before filtering: 23,170 edges
 rels_met_gain_chr17_sthr2.4 <- met_gain_chr17_sthr2.4 %>%
   transmute(
     from          = source_gene,
@@ -440,7 +432,6 @@ rels_met_gain_chr17_sthr2.4 <- rels_met_gain_chr17_sthr2.4 %>%
   )
 
 # --- Filter for Biologically Relevant Edges (GC Status) ---
-# Expected count: 15,756 edges (as of 2025-11-19)
 # Much higher edge count than expression, indicating widespread methylation
 # changes associated with chr17 amplification
 rels_met_gain_GC_sthr2.4 <- rels_met_gain_chr17_sthr2.4 %>%
@@ -499,7 +490,6 @@ message("Methylation GAIN vs Control - Missing FROM/TO nodes: ",
 # ==============================================================================
 
 # --- Node Construction ---
-# Expected count: 1,659 nodes (as of 2025-11-19)
 nodes_met_dis_chr17_sthr2.4_DC <- unique_probes_met_dis_df %>%
   left_join(probeInfo, by = "probeID") %>%
   # Use DIS vs Control DMP results
@@ -556,7 +546,6 @@ nodes_met_dis_chr17_sthr2.4_DC <- nodes_met_dis_chr17_sthr2.4_DC %>%
   mutate(id = paste0(id, "_methylation"))
 
 # --- Edge Construction ---
-# Expected count before filtering: 65,632 edges
 rels_met_dis_chr17_sthr2.4 <- met_dis_chr17_sthr2.4 %>%
   transmute(
     from          = source_gene,
@@ -573,9 +562,6 @@ rels_met_dis_chr17_sthr2.4 <- rels_met_dis_chr17_sthr2.4 %>%
   )
 
 # --- Filter for Biologically Relevant Edges (DC Status) ---
-# Expected count: 44,413 edges (as of 2025-11-19)
-# Notably higher than GAIN GC (15,756), suggesting DIS samples show more
-# widespread methylation changes vs control
 rels_met_dis_DC_sthr2.4 <- rels_met_dis_chr17_sthr2.4 %>%
   left_join(
     nodes_met_dis_chr17_sthr2.4_DC %>% select(id, status),
@@ -647,10 +633,4 @@ message("Methylation DIS vs Control - Missing FROM/TO nodes: ",
 #    - General tumor biology independent of chr17 status
 # 3. Dosage-dependent effects (gradient: Control < DIS < GAIN)
 #    - Genes showing progressive changes with copy number
-#
-# Key Findings:
-# - Expression networks: GC (1,539 edges) > DC (2,026 edges)
-# - Methylation networks: DC (44,413 edges) >> GC (15,756 edges)
-#   Suggests diploid tumors have more methylation dysregulation vs control
-#   compared to chr17 amplification effects
 # ==============================================================================
