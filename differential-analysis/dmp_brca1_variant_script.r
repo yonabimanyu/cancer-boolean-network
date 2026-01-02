@@ -11,8 +11,8 @@
 #   analysis. Identifies CpG probes with methylation changes associated with
 #   BRCA1 expression status, revealing epigenetic patterns linked to BRCA1.
 #
-# Author: [Your Name]
-# Date: 2025-01-XX
+# Author: Yon Abimanyu
+# Date: 2025-01-01
 # Version: 1.0
 #
 # Input Files:
