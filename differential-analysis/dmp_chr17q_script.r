@@ -11,8 +11,8 @@
 #   Identifies CpG probes with significant methylation changes associated with
 #   Chr17q copy number alterations in breast cancer.
 #
-# Author: [Your Name]
-# Date: 2025-01-XX
+# Author: Yon Abimanyu
+# Date: 2026-01-01
 # Version: 1.0
 #
 # Input Files:
@@ -179,8 +179,6 @@ sample_cols <- names(filtered_matrix_met_dt)[
 # Select one representative probe per gene based on highest MAD
 # Methodology: Multiple CpG probes often map to the same gene. We select
 # the most variable probe using Median Absolute Deviation (MAD).
-# Rationale: Higher MAD indicates greater biological variability and
-# more robust signal for differential methylation detection.
 representative_probes_2 <- filtered_matrix_met_dt[, {
   if (length(sample_cols) > 0) {
     probe_vars <- apply(.SD[, sample_cols, with = FALSE], 1, function(x) {
