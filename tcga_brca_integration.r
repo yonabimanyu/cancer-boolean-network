@@ -23,7 +23,7 @@
 #   how copy number gains translate into transcriptional and epigenetic dysregulation.
 #
 # Author: [Your Name]
-# Date: 2025-01-01
+# Date: 2026-01-01
 # Version: 1.0
 #
 # Input:
@@ -112,7 +112,7 @@ query_methylation_primary_tumor <- GDCquery(
 # ------------------------------------------------------------------------------
 # Rationale: GISTIC (Genomic Identification of Significant Targets in Cancer)
 # identifies recurrent copy number alterations. We focus on Chr17q gains because:
-# 1. Chr17q contains multiple oncogenes (e.g., ERBB2/HER2, GRB7, RARA)
+# 1. Chr17q contains multiple oncogenes
 # 2. Gains (amplifications) have different biological consequences than losses
 # 3. Gains are more prevalent and clinically relevant in breast cancer
 
@@ -130,7 +130,7 @@ copy_number_annotated <- copy_number_raw %>%
     # Extract sample ID (first 15 characters) for precise metadata annotation
     Sample_ID_Full = substr(SAMPLE_ID, 1, 15),
     
-    # Classify Chr17q status: GAIN (amplified) vs DIS (diploid/neutral)
+    # Classify Chr17q status: GAIN (amplified) vs DIS (disomic)
     # This binary classification enables clear stratification in downstream analysis
     Chr17q_Status = ifelse(X17q == "Gain", "GAIN", "DIS")
   )
@@ -168,7 +168,7 @@ cat("Patients with methylation data:", length(methylation_patients), "\n")
 # ------------------------------------------------------------------------------
 # Rationale: Multi-omics integration requires complete data matrices. By
 # selecting only patients with all three data types, we ensure that downstream
-# integrative analyses (correlation, network analysis, machine learning) can
+# integrative analyses (differential analysis, StepMiner, and BooleanNet) can
 # leverage the full molecular profile without missing data complications.
 
 # Step 1: Find patients with both RNA-seq AND methylation
@@ -341,8 +341,7 @@ methylation_data_combined <- GDCprepare(
 # Rationale: Beta values (0-1 scale) are converted to M-values using the logit
 # transformation: M = log2(β / (1-β)). M-values have better statistical properties:
 # - More homoscedastic (constant variance across methylation range)
-# - More suitable for linear modeling and differential methylation analysis
-# - Recommended by Du et al. (2010) BMC Bioinformatics for statistical testing
+# - More suitable for differential methylation analysis
 
 cat("Extracting beta value matrix...\n")
 beta_value_matrix <- assay(methylation_data_combined)
@@ -391,7 +390,7 @@ metadata_rnaseq_df <- metadata_rnaseq_df %>%
 # ------------------------------------------------------------------------------
 # Rationale: Three-group stratification enables comprehensive analysis:
 # - Control: Normal tissue baseline (no copy number alterations)
-# - DIS: Diploid tumors (Chr17q neutral, can identify gain-specific effects)
+# - DIS: Disomic tumors (no loss or gain in chromosome number)
 # - GAIN: Chr17q amplified tumors (test group of interest)
 
 cat("Assigning final Chr17q status categories...\n")
