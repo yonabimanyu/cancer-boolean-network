@@ -191,7 +191,6 @@ sample_cols_exp <- names(filtered_matrix_dt)[
 # Methodology: Multiple Ensembl IDs can map to the same gene symbol due to
 # alternative transcripts or annotation ambiguity. We select the most variable
 # transcript using Median Absolute Deviation (MAD) as a robust variance measure.
-# Rationale: Higher MAD indicates greater biological signal and measurement reliability.
 representative_genes_2 <- filtered_matrix_dt[, {
   if(length(sample_cols_exp) > 0) {
     gene_vars <- apply(.SD[, sample_cols_exp, with = FALSE], 1, function(x) {
