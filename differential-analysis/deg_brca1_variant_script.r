@@ -11,8 +11,8 @@
 #   statistical thresholds (mean ± 1 SD) derived from the GAIN cohort distribution.
 #   Identifies genes whose expression is associated with BRCA1 levels.
 #
-# Author: [Your Name]
-# Date: 2025-01-XX
+# Author: Yon Abimanyu
+# Date: 2026-01-01
 # Version: 1.0
 #
 # Input Files:
