@@ -9,8 +9,8 @@
 #              highest MAD to handle multiple isoforms and probes mapping to
 #              single genes.
 #
-# Author: [Your Name]
-# Date: 2025-01-01
+# Author: Yon Abimanyu
+# Date: 2026-01-01
 # Version: 1.0
 #
 # Input Files:
