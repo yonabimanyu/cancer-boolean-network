@@ -9,9 +9,9 @@
 #              Generates complete network files (nodes + edges) for visualization
 #              and analysis in Cytoscape, igraph, or other network tools.
 #
-# Author: [Your Name]
-# Date: 2025-01-01
-# Version: 3.0 (Updated 2025-12-24)
+# Author: Yon Abimanyu
+# Date: 2026-01-01
+# Version: 1.0
 #
 # Biological Rationale:
 #   DNA methylation is a key epigenetic mechanism that regulates gene expression.
@@ -75,7 +75,6 @@ genes_expr_upbrca1 <- nodes_exp_upBRCA1_chr17_sthr1.40 %>%
   filter(!is.na(id)) %>%
   distinct() %>%
   arrange(id)
-# Expected: 702 genes (as of 2025-12-24)
 
 genes_meth_upbrca1 <- nodes_met_upBRCA1_chr17_sthr1.40 %>%
   mutate(id = str_remove(id, "_methylation")) %>%
@@ -83,14 +82,11 @@ genes_meth_upbrca1 <- nodes_met_upBRCA1_chr17_sthr1.40 %>%
   filter(!is.na(id)) %>%
   distinct() %>%
   arrange(id)
-# Expected: 1,594 genes (as of 2025-12-24)
 
 # --- Identify Genes Present in Both Layers ---
 # Only genes measured in both omics can have interlayer connections
 expr_meth_upbrca1 <- intersect(genes_expr_upbrca1$id, genes_meth_upbrca1$id)
 message("upBRCA1: Genes in both layers: ", length(expr_meth_upbrca1))
-# Expected: 535 genes (as of 2025-12-24)
-
 
 # ==============================================================================
 # SECTION 1.1: UD CONTRAST (upBRCA1 vs downBRCA1)
@@ -136,7 +132,6 @@ valid_genes_UD <- expr_meth_status_upbrca1_UD %>%
   pull(gene)
 
 message("upBRCA1 UD: Genes with changes in both layers: ", length(valid_genes_UD))
-# Expected: 13 genes (as of 2025-12-24)
 
 # --- Create Interlayer Edges ---
 # Direction: methylation → expression (reflects regulatory causality)
@@ -164,7 +159,6 @@ nodes_all_upBRCA1_UD_sthr1.40 <- bind_rows(
   distinct(id, .keep_all = TRUE)
 
 message("upBRCA1 UD: Total significant nodes: ", nrow(nodes_all_upBRCA1_UD_sthr1.40))
-# Expected: 388 nodes (as of 2025-12-24)
 
 # Quality check: verify status distribution
 message("upBRCA1 UD - Expression status distribution:")
@@ -190,7 +184,6 @@ rels_all_upBRCA1_UD_sthr1.40 <- bind_rows(
   distinct()
 
 message("upBRCA1 UD: Total edges: ", nrow(rels_all_upBRCA1_UD_sthr1.40))
-# Expected: 13,609 edges (as of 2025-12-24)
 
 # Export edges
 write_csv(
@@ -256,7 +249,6 @@ valid_genes_UC <- expr_meth_status_upbrca1_UC %>%
   pull(gene)
 
 message("upBRCA1 UC: Genes with changes in both layers: ", length(valid_genes_UC))
-# Expected: 121 genes (as of 2025-12-24)
 
 # --- Create Interlayer Edges (UC) ---
 rels_meth_to_expr_upbrca1_UC <- tibble(
@@ -280,7 +272,6 @@ nodes_all_upBRCA1_UC_sthr1.40 <- bind_rows(
   distinct(id, .keep_all = TRUE)
 
 message("upBRCA1 UC: Total significant nodes: ", nrow(nodes_all_upBRCA1_UC_sthr1.40))
-# Expected: 1,281 nodes (as of 2025-12-24)
 
 message("upBRCA1 UC - Expression status distribution:")
 print(table(nodes_exp_UC_chr17_sthr1.40$status))
@@ -303,7 +294,6 @@ rels_all_upBRCA1_UC_sthr1.40 <- bind_rows(
   distinct()
 
 message("upBRCA1 UC: Total edges: ", nrow(rels_all_upBRCA1_UC_sthr1.40))
-# Expected: 153,118 edges (as of 2025-12-24)
 
 write_csv(
   rels_all_upBRCA1_UC_sthr1.40,
@@ -340,7 +330,6 @@ genes_expr_downbrca1 <- nodes_exp_downBRCA1_chr17_sthr1.40 %>%
   filter(!is.na(id)) %>%
   distinct() %>%
   arrange(id)
-# Expected: 937 genes
 
 genes_meth_downbrca1 <- nodes_met_downBRCA1_chr17_sthr1.40 %>%
   mutate(id = str_remove(id, "_methylation")) %>%
@@ -348,13 +337,10 @@ genes_meth_downbrca1 <- nodes_met_downBRCA1_chr17_sthr1.40 %>%
   filter(!is.na(id)) %>%
   distinct() %>%
   arrange(id)
-# Expected: 1,471 genes
 
 # --- Identify Genes Present in Both Layers ---
 expr_meth_downbrca1 <- intersect(genes_expr_downbrca1$id, genes_meth_downbrca1$id)
 message("downBRCA1: Genes in both layers: ", length(expr_meth_downbrca1))
-# Expected: 664 genes
-
 
 # ==============================================================================
 # SECTION 2.1: UD CONTRAST (downBRCA1 side of upBRCA1 vs downBRCA1)
@@ -393,7 +379,6 @@ valid_genes_UD_down <- expr_meth_status_downbrca1_UD %>%
   pull(gene)
 
 message("downBRCA1 UD: Genes with changes in both layers: ", length(valid_genes_UD_down))
-# Expected: 13 genes
 
 # --- Create Interlayer Edges ---
 rels_meth_to_expr_downbrca1_UD <- tibble(
@@ -417,7 +402,6 @@ nodes_all_downBRCA1_UD_sthr1.40 <- bind_rows(
   distinct(id, .keep_all = TRUE)
 
 message("downBRCA1 UD: Total significant nodes: ", nrow(nodes_all_downBRCA1_UD_sthr1.40))
-# Expected: 377 nodes
 
 message("downBRCA1 UD - Status distribution:")
 print(table(nodes_all_downBRCA1_UD_sthr1.40$status))
@@ -436,7 +420,6 @@ rels_all_downBRCA1_UD_sthr1.40 <- bind_rows(
   distinct()
 
 message("downBRCA1 UD: Total edges: ", nrow(rels_all_downBRCA1_UD_sthr1.40))
-# Expected: 15,321 edges
 
 write_csv(
   rels_all_downBRCA1_UD_sthr1.40,
@@ -499,7 +482,6 @@ valid_genes_DC <- expr_meth_status_downbrca1_DC %>%
   pull(gene)
 
 message("downBRCA1 DC: Genes with changes in both layers: ", length(valid_genes_DC))
-# Expected: 106 genes
 
 # --- Create Interlayer Edges ---
 rels_meth_to_expr_downbrca1_DC <- tibble(
@@ -523,7 +505,6 @@ nodes_all_downBRCA1_DC_sthr1.40 <- bind_rows(
   distinct(id, .keep_all = TRUE)
 
 message("downBRCA1 DC: Total significant nodes: ", nrow(nodes_all_downBRCA1_DC_sthr1.40))
-# Expected: 1,225 nodes
 
 message("downBRCA1 DC - Status distribution:")
 print(table(nodes_all_downBRCA1_DC_sthr1.40$status))
@@ -542,7 +523,6 @@ rels_all_downBRCA1_DC_sthr1.40 <- bind_rows(
   distinct()
 
 message("downBRCA1 DC: Total edges: ", nrow(rels_all_downBRCA1_DC_sthr1.40))
-# Expected: 154,384 edges
 
 write_csv(
   rels_all_downBRCA1_DC_sthr1.40,
@@ -583,18 +563,4 @@ message("downBRCA1 DC - Missing nodes: FROM=", length(missing_from_down_DC),
 #   - rels_all_downBRCA1_UD_sthr1.40.csv (15,321 edges)
 #   - nodes_all_downBRCA1_DC_sthr1.40.csv (1,225 nodes)
 #   - rels_all_downBRCA1_DC_sthr1.40.csv (154,384 edges)
-#
-# Network Characteristics:
-#   - UD contrasts are sparser (fewer nodes/edges) due to stricter filtering
-#     between similar tumor groups
-#   - Control contrasts have more edges reflecting broader dysregulation
-#     vs normal tissue
-#   - Interlayer edges range from 13 (UD) to 121 (UC) showing varying
-#     degrees of coordinated methylation-expression changes
-#
-# Next Steps:
-#   1. Import networks into Cytoscape for visualization
-#   2. Perform network topology analysis (centrality, clustering)
-#   3. Identify key regulatory hubs with high interlayer connectivity
-#   4. Compare UD vs UC/DC to distinguish BRCA1-specific vs general tumor effects
 # ==============================================================================
