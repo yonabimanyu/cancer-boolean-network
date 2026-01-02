@@ -10,8 +10,8 @@
 #   The analysis uses limma package for statistical testing and identifies genes
 #   significantly affected by Chr17q copy number changes in breast cancer.
 #
-# Author: [Your Name]
-# Date: 2025-01-XX
+# Author: Yon Abimanyu
+# Date: 2026-01-01
 # Version: 1.0
 #
 # Input Files:
