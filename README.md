@@ -73,7 +73,7 @@ To run the full pipeline, the following tools are required:
 
 ## 📊 Key Findings
 
-* **Asymmetric Dominance:** The regulatory landscape of 17q-amplified tumors is dominated by asymmetric subset implications (*High $\rightarrow$ High*), reflecting a "lock-in" of oncogenic states.
+* **Asymmetric Dominance:** The regulatory landscape of 17q-amplified tumors is dominated by asymmetric subset implications (*High → High*), reflecting a "lock-in" of oncogenic states.
 * **BRCA1 Topology:**
     * *upBRCA1* networks preserve regulatory heterogeneity.
     * *downBRCA1* networks show program consolidation, serving as a topological proxy for Homologous Recombination Deficiency (HRD).
