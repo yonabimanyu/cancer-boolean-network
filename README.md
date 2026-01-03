@@ -63,7 +63,7 @@ Implements rigorous permutation testing ($K=50$ iterations) to control False Dis
 
 To run the full pipeline, the following tools are required:
 
-* **R (v4.5.2+):** `TCGAbiolinks`, `limma`, `dplyr`, `igraph`.
+* **R (v4.5.2):** `TCGAbiolinks`, `limma`, `dplyr`, `igraph`.
 * **Python (v3.12) & Jupyter:** Required for running the StepMiner notebook.
 * **Java Runtime Environment (JRE):** Required for `stepminer-1.1.jar`.
 * **Perl:** Required for output parsing scripts (`.pl`).
