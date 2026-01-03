@@ -1,0 +1,41 @@
+// Create CONSTRAINT
+CREATE CONSTRAINT BioNode_id_layer IF NOT EXISTS
+FOR (n:BioNode)
+REQUIRE (n.id, n.layer) IS NODE KEY;
+
+
+// Query nodes
+LOAD CSV WITH HEADERS FROM 'file:///nodes_all_dis_chr17_sthr1.80.csv' AS row
+CALL {
+  WITH row
+  MERGE (n:BioNode {id: row.id})
+  SET n.symbol = row.symbol,
+      n.entrez_id = row.entrez_id,
+      n.ensembl_id = row.ensembl_id,
+      n.probe_id = row.probe_id,
+      n.type = row.type,
+      n.layer = row.layer,
+      n.chromosome = row.chromosome,
+      n.cpg_location = row.cpg_location,
+      n.status = row.status,
+      n.source = row.source
+} IN TRANSACTIONS OF 1000 ROWS;
+
+// Query relationship
+LOAD CSV WITH HEADERS FROM 'file:///rels_all_dis_chr17_sthr1.80.csv' AS row
+CALL {
+  WITH row
+  MATCH (a:BioNode {id: row.from})
+  MATCH (b:BioNode {id: row.to})
+  // Intra-layer
+  FOREACH (_ IN CASE WHEN row.layer = 'expression' THEN [1] ELSE [] END |
+    MERGE (a)-[r:EXPRESSION_REL {type: row.relation_type}]->(b)
+  )
+  FOREACH (_ IN CASE WHEN row.layer = 'methylation' THEN [1] ELSE [] END |
+    MERGE (a)-[r:METHYLATION_REL {type: row.relation_type}]->(b)
+  )
+  // Inter-layer
+  FOREACH (_ IN CASE WHEN row.layer = 'expr_meth' THEN [1] ELSE [] END |
+    MERGE (a)-[r:INTERLAYER_EXPR_METH {type: row.relation_type}]->(b)
+  )
+} IN TRANSACTIONS OF 1000 ROWS;
