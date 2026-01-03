@@ -32,14 +32,14 @@ Performs `limma`-based differential expression (DEG) and methylation (DMP) analy
 ### 3. Feature Annotation & Preparation
 **Directories:** `gene-probe-anno/` & `pre-stepminer/`
 * `gene_annotation_refactor.r`: Maps Ensembl and Probe IDs to gene symbols and chromosomal locations.
-* `pre-stepminer/`: Refactors and formats expression/methylation matrices for specific cohorts (GAIN, DIS, upBRCA1, downBRCA1) to match the input requirements of the StepMiner algorithm.
+* `pre-stepminer/`: Refactors and formats expression/methylation matrices for specific cohorts (GAIN, DIS, upBRCA1, downBRCA1) to match the input requirements of the `StepMiner` algorithm.
 
 ### 4. Boolean Network Inference (Core Pipeline)
 **Directory:** `stepminer–booleannet-workflow/`
 The core computational engine for discretizing continuous data and inferring logic.
 * `StepMiner_algorithm.ipynb` & `stepminer-1.1.jar`: Discretizes continuous omics data into Boolean states (Low, Intermediate, High).
 * `booleannet_pipeline.sh`: Shell script orchestrating the `BooleanNet` algorithm to identify asymmetric implications (e.g., *High → High*, *Low → Low*).
-* `extract_exp.pl` / `extract_met.pl`: Core parsers that mine significant Boolean implication rules from raw BooleanNet logs, specifically tailored for Expression and Methylation layers.
+* `extract_exp.pl` / `extract_met.pl`: Core parsers that mine significant Boolean implication rules from raw `BooleanNet` logs, specifically tailored for Expression and Methylation layers.
 
 ### 5. Statistical Validation
 **Directory:** `permutation-test/`
@@ -64,7 +64,7 @@ Implements rigorous permutation testing ($K=50$ iterations) to control False Dis
 To run the full pipeline, the following tools are required:
 
 * **R (v4.5.2):** `TCGAbiolinks`, `limma`, `dplyr`, `igraph`.
-* **Python (v3.12) & Jupyter:** Required for running the StepMiner notebook.
+* **Python (v3.12) & Jupyter:** Required for running the `StepMiner` notebook.
 * **Java Runtime Environment (JRE):** Required for `stepminer-1.1.jar`.
 * **Perl:** Required for output parsing scripts (`.pl`).
 * **Neo4j:** For graph database management and visualization.
