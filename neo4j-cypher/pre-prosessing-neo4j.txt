@@ -3,7 +3,6 @@ CREATE CONSTRAINT BioNode_id_layer IF NOT EXISTS
 FOR (n:BioNode)
 REQUIRE (n.id, n.layer) IS NODE KEY;
 
-
 // Query nodes
 LOAD CSV WITH HEADERS FROM 'file:///nodes_all_dis_chr17_sthr1.80.csv' AS row
 CALL {
@@ -38,4 +37,5 @@ CALL {
   FOREACH (_ IN CASE WHEN row.layer = 'expr_meth' THEN [1] ELSE [] END |
     MERGE (a)-[r:INTERLAYER_EXPR_METH {type: row.relation_type}]->(b)
   )
+
 } IN TRANSACTIONS OF 1000 ROWS;
