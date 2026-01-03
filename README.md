@@ -1,7 +1,7 @@
 # Deciphering Asymmetric Regulatory Logic in 17q-Amplified Breast Cancer
 
 ![Status](https://img.shields.io/badge/Status-Research_Prototype-blue)
-![Languages](https://img.shields.io/badge/Languages-R_%7C_Perl_%7C_Shell_%7C_Cypher-orange)
+![Languages](https://img.shields.io/badge/Languages-R_%7C_Python_%7C_Perl_%7C_Shell_%7C_Cypher-orange)
 ![Graph DB](https://img.shields.io/badge/Database-Neo4j-green)
 
 ## 🧬 Project Overview
@@ -38,7 +38,7 @@ Performs `limma`-based differential expression (DEG) and methylation (DMP) analy
 **Directory:** `stepminer–booleannet-workflow/`
 The core computational engine for discretizing continuous data and inferring logic.
 * `StepMiner_algorithm.ipynb` & `stepminer-1.1.jar`: Discretizes continuous omics data into Boolean states (Low, Intermediate, High).
-* `booleannet_pipeline.sh`: Shell script orchestrating the `BooleanNet` algorithm to identify asymmetric implications (e.g., *High $\rightarrow$ High*, *Low $\rightarrow$ Low*).
+* `booleannet_pipeline.sh`: Shell script orchestrating the `BooleanNet` algorithm to identify asymmetric implications (e.g., *High → High*, *Low → Low*).
 * `extract_exp.pl` / `extract_met.pl`: Perl scripts to parse and format the raw BooleanNet output.
 
 ### 5. Statistical Validation
@@ -64,7 +64,7 @@ Implements rigorous permutation testing ($K=50$ iterations) to control False Dis
 To run the full pipeline, the following tools are required:
 
 * **R (v4.5.2+):** `TCGAbiolinks`, `limma`, `dplyr`, `igraph`.
-* **Python (v3.x) & Jupyter:** Required for running the StepMiner notebook.
+* **Python (v3.12) & Jupyter:** Required for running the StepMiner notebook.
 * **Java Runtime Environment (JRE):** Required for `stepminer-1.1.jar`.
 * **Perl:** Required for output parsing scripts (`.pl`).
 * **Neo4j:** For graph database management and visualization.
