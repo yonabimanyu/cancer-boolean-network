@@ -22,7 +22,7 @@
 #   with aggressive tumor phenotypes. Multi-omics integration enables investigation of
 #   how copy number gains translate into transcriptional and epigenetic dysregulation.
 #
-# Author: [Your Name]
+# Author: Yon Abimanyu
 # Date: 2026-01-01
 # Version: 1.0
 #
