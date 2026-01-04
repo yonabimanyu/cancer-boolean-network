@@ -39,13 +39,13 @@ Performs `limma`-based differential expression (DEG) and methylation (DMP) analy
 The core computational engine for discretizing continuous data and inferring logic.
 * `StepMiner_algorithm.ipynb` & `stepminer-1.1.jar`: Discretizes continuous omics data into Boolean states (Low, Intermediate, High).
 * `booleannet_pipeline.sh`: Shell script orchestrating the `BooleanNet` algorithm to identify asymmetric implications (e.g., *High → High*, *Low → Low*).
-* `extract_exp.pl` / `extract_met.pl`: Core parsers that mine significant Boolean implication rules from raw `BooleanNet` logs, specifically tailored for Expression and Methylation layers.
+* `extract_exp.pl` / `extract_met.pl`: Core parsers that mine significant Boolean implication rules from raw BooleanNet logs, tailored for Expression and Methylation layers.
 
 ### 5. Statistical Validation
 **Directory:** `permutation-test/`
 Implements rigorous permutation testing ($K=50$ iterations) to control False Discovery Rate (FDR).
-* `permutation_test_script_exp.sh` / `_met.sh`: Orchestrators for validation that handle randomization and iterative execution. They compute empirical FDR based solely on process exit codes and implication counts, remaining agnostic to specific file headers or column formats.
-* `extract_permutation.pl`: The parsing engine for null model generation. It adapts the extraction logic to permuted datasets, providing the flexible filtering required by the shell drivers.
+* `permutation_test_script_exp.sh` / `_met.sh`: Validation orchestrators that automate sample randomization. They compute empirical FDR based solely on process exit codes and implication counts, remaining agnostic to internal data headers or formatting.
+* `extract_permutation.pl`: The parsing engine for null model generation. It adapts the extraction logic to permuted datasets, ensuring flexible rule counting regardless of column consistency.
 
 ### 6. Multi-Omics Integration & Network Analysis
 **Directories:** `interlayer-construction/` & `network_analysis/`
