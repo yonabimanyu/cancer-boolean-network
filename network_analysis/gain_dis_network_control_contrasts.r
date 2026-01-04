@@ -38,7 +38,7 @@
 #                lists (unique_genes_gain_df, unique_genes_dis_df,
 #                unique_probes_met_df, unique_probes_met_dis_df)
 #
-# Output: Network nodes and edges data frames for Cytoscape/igraph
+# Output: Network nodes and edges data frames for Cytoscape
 #
 # Dependencies: dplyr, stringr, purrr
 # ==============================================================================
@@ -623,14 +623,4 @@ message("Methylation DIS vs Control - Missing FROM/TO nodes: ",
 # Methylation networks:
 # - nodes_met_gain_chr17_sthr2.4_GC, rels_met_gain_GC_sthr2.4 (GAIN vs Ctrl)
 # - nodes_met_dis_chr17_sthr2.4_DC, rels_met_dis_DC_sthr2.4 (DIS vs Ctrl)
-#
-# Analysis Strategy:
-# Compare GC/DC contrasts with GD contrast to identify:
-# 1. Copy number-specific effects (present in GC, absent in DC)
-#    - Genes with GAIN-specific expression changes
-#    - CpG sites with amplification-associated methylation
-# 2. Baseline tumor effects (common to both GC and DC)
-#    - General tumor biology independent of chr17 status
-# 3. Dosage-dependent effects (gradient: Control < DIS < GAIN)
-#    - Genes showing progressive changes with copy number
 # ==============================================================================
