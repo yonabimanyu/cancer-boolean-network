@@ -5,7 +5,7 @@
 # Title: Data Processing Pipeline for DIS-Chr17 Samples
 # Description: Extracts and processes chromosome 17 gene expression and DNA
 #              methylation data from samples classified as DIS-Chr17 (chromosome
-#              17q disomy/neutral). Implements probe/gene selection based on
+#              17q disomic). Implements probe/gene selection based on
 #              highest MAD to handle multiple isoforms and probes mapping to
 #              single genes.
 #
@@ -53,7 +53,7 @@ cat("=== PROCESSING DIS-Chr17 GENE EXPRESSION DATA ===\n")
 # -------------------------------------------------------------------------------
 # 1.1 Extract DIS-Chr17 Samples
 # -------------------------------------------------------------------------------
-# Scientific rationale: DIS-Chr17 (disomy) samples represent the baseline/control
+# Scientific rationale: DIS-Chr17 (disomic) samples represent the baseline/control
 # state with normal chromosome 17q copy number. Analyzing these samples provides
 # a reference for comparison with GAIN samples to identify dosage-dependent
 # expression changes resulting from chromosomal amplification
