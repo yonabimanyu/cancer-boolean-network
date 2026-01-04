@@ -550,17 +550,3 @@ message("downBRCA1 DC - Missing nodes: FROM=", length(missing_from_down_DC),
 # ==============================================================================
 # END OF SCRIPT
 # ==============================================================================
-# Output files generated in results/brca1/:
-# 
-# upBRCA1 networks:
-#   - nodes_all_upBRCA1_UD_sthr1.40.csv (388 nodes)
-#   - rels_all_upBRCA1_UD_sthr1.40.csv (13,609 edges)
-#   - nodes_all_upBRCA1_UC_sthr1.40.csv (1,281 nodes)
-#   - rels_all_upBRCA1_UC_sthr1.40.csv (153,118 edges)
-#
-# downBRCA1 networks:
-#   - nodes_all_downBRCA1_UD_sthr1.40.csv (377 nodes)
-#   - rels_all_downBRCA1_UD_sthr1.40.csv (15,321 edges)
-#   - nodes_all_downBRCA1_DC_sthr1.40.csv (1,225 nodes)
-#   - rels_all_downBRCA1_DC_sthr1.40.csv (154,384 edges)
-# ==============================================================================
