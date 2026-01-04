@@ -29,7 +29,7 @@
 #                lists (unique_genes_up_df, unique_genes_down_df,
 #                unique_probes_up_df, unique_probes_down_df)
 #
-# Output: Network nodes and edges data frames for Cytoscape/igraph
+# Output: Network nodes and edges data frames for Cytoscape
 #
 # Dependencies: dplyr, stringr, purrr
 # ==============================================================================
@@ -628,10 +628,4 @@ message("Methylation DC - Missing FROM/TO nodes: ",
 # Methylation networks:
 # - nodes_met_UC_chr17_sthr1.40, rels_met_upbrca1_UC_sthr1.40 (upBRCA1 vs Ctrl)
 # - nodes_met_DC_chr17_sthr1.40, rels_met_downbrca1_DC_sthr1.40 (downBRCA1 vs Ctrl)
-#
-# Analysis Strategy:
-# Compare UC/DC contrasts with UD contrast to identify:
-# 1. BRCA1-specific effects (present in UC/DC but not UD)
-# 2. Baseline tumor effects (common across all contrasts)
-# 3. Dose-dependent effects (gradient across conditions)
 # ==============================================================================
