@@ -542,24 +542,3 @@ message("DIS DC - Missing nodes: FROM=", length(missing_from_dis_DC),
 # ==============================================================================
 # END OF SCRIPT
 # ==============================================================================
-# Output files generated in results/gain_dis/:
-# 
-# GAIN networks:
-#   - nodes_all_gain_GD_sthr2.3_2.4.csv (632 nodes)
-#   - rels_all_gain_GD_sthr2.3_2.4.csv (4,880 edges)
-#   - nodes_all_gain_GC_sthr2.3_2.4.csv (1,441 nodes)
-#   - rels_all_gain_GC_sthr2.3_2.4.csv (17,422 edges)
-#
-# DIS networks:
-#   - nodes_all_dis_GD_sthr2.3_2.4.csv (675 nodes)
-#   - rels_all_dis_GD_sthr2.3_2.4.csv (10,743 edges)
-#   - nodes_all_dis_DC_sthr2.3_2.4.csv (1,474 nodes)
-#   - rels_all_dis_DC_sthr2.3_2.4.csv (46,534 edges)
-#
-# Comparison with BRCA1 Networks:
-#   - GAIN/DIS networks are generally sparser due to stricter thresholds
-#     (2.3/2.4 vs 1.4) - higher confidence but fewer relationships
-#   - Different biological focus: copy number dosage effects vs BRCA1
-#     expression status
-#   - Similar pattern: control contrasts have more edges than paired contrasts
-# ==============================================================================
