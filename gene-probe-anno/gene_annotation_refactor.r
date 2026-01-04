@@ -11,7 +11,7 @@
 #   The pipeline generates multiple gene-centric annotation tables grouped by
 #   Entrez ID, Ensembl ID, and gene symbol, along with probe-to-gene mappings.
 #
-# Author: [Your Name]
+# Author: Yon Abimanyu
 # Date: 2026-01-01
 # Version: 1.0
 #
