@@ -4,7 +4,7 @@ FOR (n:BioNode)
 REQUIRE (n.id, n.layer) IS NODE KEY;
 
 // Query nodes
-LOAD CSV WITH HEADERS FROM 'file:///nodes_all_dis_chr17_sthr1.80.csv' AS row
+LOAD CSV WITH HEADERS FROM 'file:///nodes_all_gain_chr17_sthr2.3.csv' AS row
 CALL {
   WITH row
   MERGE (n:BioNode {id: row.id})
@@ -21,7 +21,7 @@ CALL {
 } IN TRANSACTIONS OF 1000 ROWS;
 
 // Query relationship
-LOAD CSV WITH HEADERS FROM 'file:///rels_all_dis_chr17_sthr1.80.csv' AS row
+LOAD CSV WITH HEADERS FROM 'file:///rels_all_gain_chr17_sthr2.3.csv' AS row
 CALL {
   WITH row
   MATCH (a:BioNode {id: row.from})
@@ -39,3 +39,4 @@ CALL {
   )
 
 } IN TRANSACTIONS OF 1000 ROWS;
+
