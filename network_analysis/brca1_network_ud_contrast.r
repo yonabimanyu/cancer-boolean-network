@@ -23,7 +23,7 @@
 #   - data/deg/up_down_brca1_deg.rds (Differential expression results)
 #   - data/dmp/upbrca1_vs_downbrca1_dmp.rds (Differential methylation results)
 #
-# Output: Network nodes and edges data frames for Cytoscape/igraph
+# Output: Network nodes and edges data frames for Cytoscape
 #
 # Dependencies: dplyr, stringr, purrr
 # ==============================================================================
