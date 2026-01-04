@@ -32,7 +32,7 @@
 #   - data/deg/gain_vs_dis_deg.rds (Differential expression results)
 #   - data/dmp/gain_vs_dis_dmp.rds (Differential methylation results)
 #
-# Output: Network nodes and edges data frames for Cytoscape/igraph
+# Output: Network nodes and edges data frames for Cytoscape
 #
 # Dependencies: dplyr, stringr, purrr
 # ==============================================================================
