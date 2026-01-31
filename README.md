@@ -25,7 +25,7 @@ The code is organized by analytical stage, processing data from raw TCGA downloa
     * **RNA-seq & Methylation:** Downloads TCGA-BRCA data via `TCGAbiolinks`.
     * **Copy Number Variation (CNV):** Integrates putative arm-level CNV data retrieved separately from **cBioPortal**.
     * **Preprocessing:** Normalizes RNA-seq to Log2TPM and Methylation $\beta$-values to M-values.
-    * **Global Stratification:** Segregates samples into GAIN-Chr17q ($n=106$) vs. DIS-Chr17q ($n=331$) and further stratifies the GAIN cohort into *upBRCA1* ($n=16$) and *downBRCA1* ($n=17$) subsets.
+    * **Global Stratification:** Segregates samples into GAIN-Chr17q ($n=106$) vs. DIS-Chr17q ($n=331$).
 
 ### 2. Differential Analysis
 **Directory:** `differential-analysis/`
