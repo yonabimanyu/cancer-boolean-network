@@ -67,7 +67,7 @@ Implements rigorous permutation testing ($K=50$ iterations) to control False Dis
 
 To run the full pipeline, the following tools are required:
 
-* **R (v4.5.2):** `TCGAbiolinks`, `limma`, `dplyr`, `igraph`.
+* **R (v4.5.2):** `TCGAbiolinks`, `limma`, etc.
 * **Python (v3.12) & Jupyter:** Required for running the `StepMiner` notebook.
 * **Java Runtime Environment (JRE):** Required for `stepminer-1.1.jar`.
 * **Perl:** Required for output parsing scripts (`.pl`).
@@ -81,7 +81,8 @@ To run the full pipeline, the following tools are required:
 * **BRCA1 Topology:**
     * *upBRCA1* networks preserve regulatory heterogeneity.
     * *downBRCA1* networks show program consolidation, serving as a topological proxy for Homologous Recombination Deficiency (HRD).
-* **Epigenetic Decoupling:** We identified a paradox where hypermethylation of 17q genes (e.g., *MAPT*, *BRIP1*) correlates with transcriptional upregulation, driven by gene dosage effects.
+* **Amplification-Driven Decoupling:** We identified a regulatory paradox where 17q gene amplification overrides canonical epigenetic silencing. Genes like *BRIP1*, *MED13*, and *MAPT* exhibit transcriptional upregulation despite promoter hypermethylation, driven by massive gene dosage pressure.
+* **Critical Bottlenecks:** Network analysis identified *MAPT* (Betweenness Centrality 4.533) as a critical bottleneck mediating signal propagation from *BRCA1* to peripheral gene clusters.
 
 ---
 
