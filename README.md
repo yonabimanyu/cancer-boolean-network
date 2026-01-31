@@ -25,13 +25,13 @@ The code is organized by analytical stage, processing data from raw TCGA downloa
     * **RNA-seq & Methylation:** Downloads TCGA-BRCA data via `TCGAbiolinks`.
     * **Copy Number Variation (CNV):** Integrates putative arm-level CNV data retrieved separately from **cBioPortal**.
     * **Preprocessing:** Normalizes RNA-seq to Log2TPM and Methylation $\beta$-values to M-values.
-    * **Stratification:** Segregates samples into GAIN-Chr17q ($n=106$) vs. DIS-Chr17q ($n=331$) and further stratifies the GAIN cohort into *upBRCA1* ($n=16$) and *downBRCA1* ($n=17$) subsets.
+    * **Global Stratification:** Segregates samples into GAIN-Chr17q ($n=106$) vs. DIS-Chr17q ($n=331$) and further stratifies the GAIN cohort into *upBRCA1* ($n=16$) and *downBRCA1* ($n=17$) subsets.
 
 ### 2. Differential Analysis
 **Directory:** `differential-analysis/`
 Performs `limma`-based differential expression (DEG) and methylation (DMP) analysis using a **MaxRowVariance** feature selection strategy to prioritize biologically dynamic features on Chromosome 17.
 * **Global Contrasts:** `deg_chr17q_script.r` and `dmp_chr17q_script.r` analyze GAIN vs. DIS vs. Control.
-* **BRCA1 Stratification:** `deg_brca1_variant_script.r` and `dmp_brca1_variant_script.r` analyze *upBRCA1* vs. *downBRCA1* subsets to isolate BRCA1-dependent regulatory programs.
+* **BRCA1 Stratification:** `deg_brca1_variant_script.r` and `dmp_brca1_variant_script.r` analyze *upBRCA1* ($n=16$) vs. *downBRCA1* ($n=17$) subsets to isolate BRCA1-dependent regulatory programs.
 
 ### 3. Feature Annotation & Preparation
 **Directories:** `gene-probe-anno/` & `pre-stepminer/`
