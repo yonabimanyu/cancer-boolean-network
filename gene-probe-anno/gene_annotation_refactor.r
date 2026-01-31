@@ -481,12 +481,14 @@ cat("\n=== PART 6: Building comprehensive probe annotation table ===\n")
 # ------------------------------------------------------------------------------
 # Rationale: Combining our nearest-gene mapping with UCSC RefGene group
 # annotations (TSS, 5'UTR, Body, 3'UTR, etc.) provides complete functional
-# context for each probe's genomic location.
+# context for each probe's genomic location. The distance to TSS (best_distToTSS)
+# quantifies how far each CpG site is from its nearest gene's transcription start
+# site, which is critical for interpreting regulatory potential.
 
 comprehensive_probe_info <- bind_rows(
-  # Source 1: Our one-to-one gene mapping
+  # Source 1: Our one-to-one gene mapping (includes distance to TSS)
   probe_to_gene_mapping %>%
-    select(probeID, gene_name, chromosome_name),
+    select(probeID, gene_name, chromosome_name, best_distToTSS),
   
   # Source 2: UCSC RefGene functional region annotations
   annotation_hg38_merged %>%
@@ -498,6 +500,7 @@ comprehensive_probe_info <- bind_rows(
     gene_name = first(na.omit(gene_name)),
     UCSC_RefGene_Group = first(na.omit(UCSC_RefGene_Group)),
     chromosome_name = first(na.omit(chromosome_name)),
+    best_distToTSS = first(na.omit(best_distToTSS)),
     .groups = "drop"
   )
 
