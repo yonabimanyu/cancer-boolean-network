@@ -19,15 +19,19 @@ By stratifying patients based on **17q Copy Number Status** (GAIN vs. DIS) and *
 
 The code is organized by analytical stage, processing data from raw TCGA downloads to graph database visualization.
 
-### 1. Data Acquisition
+### 1. Data Acquisition & Stratification
 **Directory:** `tcga-brca-integration/`
-* `tcga_brca_integration.r`: Uses `TCGAbiolinks` to download and integrate RNA-seq, DNA Methylation, and CNV data for the BRCA cohort, filtering for complete multi-omics profiles ($n=429$ tumor samples).
+* `tcga_brca_integration.r`: Orchestrates the retrieval and integration of multi-omics data:
+    * **RNA-seq & Methylation:** Downloads TCGA-BRCA data via `TCGAbiolinks`.
+    * **Copy Number Variation (CNV):** Integrates putative arm-level CNV data retrieved separately from **cBioPortal**.
+    * **Preprocessing:** Normalizes RNA-seq to Log2TPM and Methylation $\beta$-values to M-values.
+    * **Stratification:** Segregates samples into GAIN-Chr17q ($n=106$) vs. DIS-Chr17q ($n=331$) and further stratifies the GAIN cohort into *upBRCA1* ($n=16$) and *downBRCA1* ($n=17$) subsets.
 
 ### 2. Differential Analysis
 **Directory:** `differential-analysis/`
-Performs `limma`-based differential expression (DEG) and methylation (DMP) analysis to select significant features for network construction.
-* **Chromosome 17q Global Contrasts:** `deg_chr17q_script.r` and `dmp_chr17q_script.r` analyze GAIN-Chr17q vs. DIS-Chr17q vs. Control.
-* **BRCA1 Stratification:** `deg_brca1_variant_script.r` and `dmp_brca1_variant_script.r` analyze specific *upBRCA1* vs. *downBRCA1* subsets.
+Performs `limma`-based differential expression (DEG) and methylation (DMP) analysis using a **MaxRowVariance** feature selection strategy to prioritize biologically dynamic features on Chromosome 17.
+* **Global Contrasts:** `deg_chr17q_script.r` and `dmp_chr17q_script.r` analyze GAIN vs. DIS vs. Control.
+* **BRCA1 Stratification:** `deg_brca1_variant_script.r` and `dmp_brca1_variant_script.r` analyze *upBRCA1* vs. *downBRCA1* subsets to isolate BRCA1-dependent regulatory programs.
 
 ### 3. Feature Annotation & Preparation
 **Directories:** `gene-probe-anno/` & `pre-stepminer/`
